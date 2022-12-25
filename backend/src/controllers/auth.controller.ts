@@ -23,7 +23,7 @@ const register = async (
     res.status(201).send({
       statusCode: 201,
       error: false,
-      message: 'Created successfully',
+      message: 'Registration successful',
       response
     })
   } catch (error) {
@@ -48,7 +48,7 @@ const login = async ({ body }: Request, res: Response, next: NextFunction) => {
     res.status(200).send({
       statusCode: 200,
       error: false,
-      message: 'User found',
+      message: 'Login successful',
       response: {
         user: {
           id: user._id,
