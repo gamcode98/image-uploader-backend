@@ -1,5 +1,5 @@
 {
-  "name": "backend",
+  "name": "image-uploader",
   "version": "1.0.0",
   "description": "",
   "main": ".eslintrc.js",
@@ -9,7 +9,7 @@
     "build": "tsc"
   },
   "keywords": [],
-  "author": "",
+  "author": "gamcode98",
   "license": "ISC",
   "dependencies": {
     "@hapi/boom": "^10.0.0",

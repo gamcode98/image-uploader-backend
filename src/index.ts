@@ -17,6 +17,8 @@ app.use(express.json())
 
 app.use(cors())
 
+app.use('/storage', express.static('storage'))
+
 routerApi(app)
 
 // app.use(logErrors)
