@@ -1,8 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
-import { registerNewUser } from '../services/auth.service'
-import { findOneUserByEmail } from '../services/user.service'
-import { encrypt, verify } from '../utils/bcrypt.handle'
-import { generateToken } from '../utils/jwt.handle'
+import { registerNewUser, findOneUserByEmail } from '../services/user.service'
+import { encrypt, verify } from '../utils/bcrypt.handler'
+import { generateToken } from '../utils/jwt.handler'
 import boom from '@hapi/boom'
 
 const register = async (
