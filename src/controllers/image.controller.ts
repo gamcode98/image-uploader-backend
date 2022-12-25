@@ -1,26 +1,26 @@
 import { NextFunction, Response } from 'express'
 import { RequestExt } from '../interfaces/request-ext'
-import { Storage } from '../interfaces/storage.interface'
-import { getStorage, registerUpload } from '../services/storage.service'
+import { Image } from '../interfaces/image.interface'
+import { uploadImage, getImages } from '../services/image.service'
 
-const uploadImage = async (
+const uploadImageToStore = async (
   { user, file }: RequestExt,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    const dataToRegister: Storage = {
-      fileName: `${file?.filename}`,
-      idUser: `${user?.id}`,
+    const image: Image = {
+      name: `${file?.filename}`,
+      userId: `${user?.id}`,
       path: `${file?.path}`
     }
 
-    const response = await registerUpload(dataToRegister)
+    const response = await uploadImage(image)
 
     res.status(201).send({
       statusCode: 201,
       error: false,
-      message: 'Storage uploaded successfully',
+      message: 'Image uploaded successfully',
       response
     })
   } catch (error) {
@@ -28,14 +28,14 @@ const uploadImage = async (
   }
 }
 
-const getImages = async (
+const getImagesStored = async (
   { user }: RequestExt,
   res: Response,
   next: NextFunction
 ) => {
   try {
     const userId = user?.id
-    const response = await getStorage(userId)
+    const response = await getImages(userId)
 
     res.status(200).send({
       statusCode: res.statusCode,
@@ -48,4 +48,4 @@ const getImages = async (
   }
 }
 
-export { uploadImage, getImages }
+export { uploadImageToStore, getImagesStored }
