@@ -1,11 +1,11 @@
 import { Request } from 'express'
 import multer from 'multer'
-
-const PATH_STORAGE = `${process.cwd()}/storage`
+import fs from 'fs'
+import boom from '@hapi/boom'
 
 const storage = multer.diskStorage({
   destination: (req: Request, file: Express.Multer.File, cb: any) => {
-    cb(null, PATH_STORAGE)
+    cb(null, './storage')
   },
   filename: (req: Request, file: Express.Multer.File, cb: any) => {
     const ext = file.originalname.split('.').pop()
@@ -16,4 +16,14 @@ const storage = multer.diskStorage({
 
 const multerMiddleware = multer({ storage })
 
-export default multerMiddleware
+const deleteImageStored = async (name: string) => {
+  return new Promise((resolve, reject) => {
+    fs.unlink(`./storage/${name}`, err => {
+      if (err)
+        reject(boom.badData(`Something went wrong. Could not delete ${name}`))
+      resolve(`Successfully deleted image: ${name}`)
+    })
+  })
+}
+
+export { multerMiddleware, deleteImageStored }

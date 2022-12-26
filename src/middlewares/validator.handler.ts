@@ -9,6 +9,9 @@ function validatorHandler(schema: any, property: string) {
 
     if (error) return next(boom.badRequest(error))
 
+    if (property === 'file' && req[property as keyof Request] === undefined)
+      return next(boom.badRequest('Image file not found'))
+
     next()
   }
 }
