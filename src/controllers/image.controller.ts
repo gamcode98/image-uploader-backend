@@ -49,11 +49,11 @@ const getOneImageCtrl = async (
   next: NextFunction
 ) => {
   try {
-    const { id } = params
+    const { _id } = params
 
     const userId = user?.id
 
-    const response = await getOneImage(id, userId)
+    const response = await getOneImage({ _id, userId })
 
     if (!response) throw boom.notFound('No image found')
 
@@ -99,11 +99,11 @@ const deleteOneImageCtrl = async (
   next: NextFunction
 ) => {
   try {
-    const { id } = params
+    const { _id } = params
 
     const userId = user?.id
 
-    const response = await getOneImage(id, userId)
+    const response = await getOneImage({ _id, userId })
 
     if (!response) throw boom.notFound('No image found')
 
@@ -111,7 +111,7 @@ const deleteOneImageCtrl = async (
 
     const message = await deleteImageStored(name)
 
-    await deleteOneImage(id, userId)
+    await deleteOneImage({ _id, userId })
 
     return res.status(200).send({
       statusCode: res.statusCode,

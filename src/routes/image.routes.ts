@@ -25,7 +25,7 @@ router.post(
 )
 
 router.get(
-  '/:id',
+  '/:_id',
   checkJwt,
   validatorHandler(getOneImageSchema, 'params'),
   getOneImageCtrl
@@ -34,7 +34,7 @@ router.get(
 router.get('/', checkJwt, getAllImagesCtrl)
 
 router.delete(
-  '/:id',
+  '/:_id',
   checkJwt,
   validatorHandler(deleteOneImageSchema, 'params'),
   deleteOneImageCtrl

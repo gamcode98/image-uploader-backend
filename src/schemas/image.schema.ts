@@ -1,6 +1,6 @@
 import Joi from 'joi'
 
-const id = Joi.string().hex().length(24)
+const _id = Joi.string().hex().length(24)
 const fieldname = Joi.string()
 const originalname = Joi.string()
 const encoding = Joi.string()
@@ -24,11 +24,11 @@ const uploadImageSchema = Joi.object({
 })
 
 const getOneImageSchema = Joi.object({
-  id: id.required()
+  _id: _id.required()
 })
 
 const deleteOneImageSchema = Joi.object({
-  id: id.required()
+  _id: _id.required()
 })
 
 export { uploadImageSchema, getOneImageSchema, deleteOneImageSchema }

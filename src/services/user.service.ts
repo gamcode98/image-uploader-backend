@@ -24,13 +24,15 @@ const registerNewUser = async ({
   return userRegistered
 }
 
-const findOneUserByEmail = async (email: string): Promise<User | null> => {
+const findOneUserByEmail = async (
+  email: UserDto['email']
+): Promise<User | null> => {
   const userFound: User | null = await UserModel.findOne({ email })
   return userFound
 }
 
 const updateOneUser = async (
-  _id: string,
+  _id: UserDto['_id'],
   data: UpdateUserDto
 ): Promise<UserDto | null> => {
   const user: User | null = await UserModel.findByIdAndUpdate(_id, data, {
@@ -50,7 +52,7 @@ const updateOneUser = async (
   return userUpdated
 }
 
-const deleteOneUser = async (_id: string): Promise<User | null> => {
+const deleteOneUser = async (_id: UserDto['_id']): Promise<User | null> => {
   const userDeleted: User | null = await UserModel.findByIdAndDelete({ _id })
   return userDeleted
 }
