@@ -1,7 +1,9 @@
 import { User } from '../interfaces/user.interface'
 
-type PasswordHash = { passwordHash: string }
+export interface RegisterUserDto extends Pick<User, 'username' | 'email'> {
+  passwordHash: string
+}
 
-export type Register = Pick<User, 'username' | 'email'> & PasswordHash
+export type RegisteredUserDto = Omit<User, 'password'>
 
 export type Login = Omit<User, 'password'>

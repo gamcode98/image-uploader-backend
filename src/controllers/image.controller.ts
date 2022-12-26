@@ -1,6 +1,5 @@
 import { NextFunction, Response, Request } from 'express'
 import { RequestExt } from '../interfaces/request-ext'
-import { Image } from '../interfaces/image.interface'
 import {
   uploadOneImage,
   getAllImages,
@@ -10,6 +9,7 @@ import {
 import { deleteImageStored } from '../middlewares/file.handler'
 import { config } from '../config'
 import boom from '@hapi/boom'
+import { UploadImageDto } from '../dto/image.dto'
 
 const uploadOneImageCtrl = async (
   { user, file }: RequestExt,
@@ -24,7 +24,7 @@ const uploadOneImageCtrl = async (
         'Storage complete. You can not upload more than 10 images'
       )
 
-    const image: Image = {
+    const image: UploadImageDto = {
       name: `${file?.filename}`,
       userId: `${user?.id}`,
       path: `${config.url}:${config.port}/${file?.path}`

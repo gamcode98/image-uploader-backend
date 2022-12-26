@@ -1,7 +1,12 @@
+import { UploadImageDto } from '../dto/image.dto'
 import { Image } from '../interfaces/image.interface'
 import ImageModel from '../models/image.model'
 
-const uploadOneImage = async ({ name, userId, path }: Image) => {
+const uploadOneImage = async ({
+  name,
+  userId,
+  path
+}: UploadImageDto): Promise<Image> => {
   const response = await ImageModel.create({ name, userId, path })
   return response
 }
