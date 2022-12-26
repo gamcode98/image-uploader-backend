@@ -4,6 +4,7 @@ export interface RegisterUserDto extends Pick<User, 'username' | 'email'> {
   passwordHash: string
 }
 
-export type RegisteredUserDto = Omit<User, 'password'>
+export type UserDto = Omit<User, 'password'>
 
-export type Login = Omit<User, 'password'>
+export interface UpdateUserDto
+  extends Partial<Omit<User, 'createdAt' | 'updatedAt' | '_id'>> {}

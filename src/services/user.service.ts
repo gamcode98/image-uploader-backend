@@ -1,4 +1,4 @@
-import { RegisteredUserDto, RegisterUserDto } from '../dto/auth.dto'
+import { RegisterUserDto, UpdateUserDto, UserDto } from '../dto/auth.dto'
 import { User } from '../interfaces/user.interface'
 import UserModel from '../models/user.model'
 
@@ -6,14 +6,14 @@ const registerNewUser = async ({
   email,
   passwordHash,
   username
-}: RegisterUserDto): Promise<RegisteredUserDto> => {
+}: RegisterUserDto): Promise<UserDto> => {
   const user: User = await UserModel.create({
     username,
     password: passwordHash,
     email
   })
 
-  const userRegistered: RegisteredUserDto = {
+  const userRegistered: UserDto = {
     _id: user._id,
     username: user.username,
     email: user.email,
@@ -25,8 +25,34 @@ const registerNewUser = async ({
 }
 
 const findOneUserByEmail = async (email: string): Promise<User | null> => {
-  const user: User | null = await UserModel.findOne({ email })
-  return user
+  const userFound: User | null = await UserModel.findOne({ email })
+  return userFound
 }
 
-export { registerNewUser, findOneUserByEmail }
+const updateOneUser = async (
+  _id: string,
+  data: UpdateUserDto
+): Promise<UserDto | null> => {
+  const user: User | null = await UserModel.findByIdAndUpdate(_id, data, {
+    new: true
+  })
+
+  if (user === null) return null
+
+  const userUpdated: UserDto = {
+    _id: user._id,
+    username: user.username,
+    email: user.email,
+    createdAt: user.createdAt,
+    updatedAt: user.updatedAt
+  }
+
+  return userUpdated
+}
+
+const deleteOneUser = async (_id: string): Promise<User | null> => {
+  const userDeleted: User | null = await UserModel.findByIdAndDelete({ _id })
+  return userDeleted
+}
+
+export { registerNewUser, findOneUserByEmail, updateOneUser, deleteOneUser }

@@ -16,14 +16,21 @@ const storage = multer.diskStorage({
 
 const multerMiddleware = multer({ storage })
 
-const deleteImageStored = async (name: string) => {
-  return new Promise((resolve, reject) => {
-    fs.unlink(`./storage/${name}`, err => {
-      if (err)
-        reject(boom.badData(`Something went wrong. Could not delete ${name}`))
-      resolve(`Successfully deleted image: ${name}`)
-    })
-  })
+const deleteImageStored = async (...names: string[]) => {
+  return Promise.all(
+    names.map(
+      name =>
+        new Promise((resolve, reject) => {
+          fs.unlink(`./storage/${name}`, err => {
+            if (err)
+              reject(
+                boom.badData(`Something went wrong. Could not delete ${name}`)
+              )
+            resolve(`Successfully deleted image: ${name}`)
+          })
+        })
+    )
+  )
 }
 
 export { multerMiddleware, deleteImageStored }

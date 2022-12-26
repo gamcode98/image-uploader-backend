@@ -32,4 +32,15 @@ const deleteOneImage = async (
   return response
 }
 
-export { uploadOneImage, getOneImage, getAllImages, deleteOneImage }
+const deleteAllImages = async (userId: string) => {
+  const response = await ImageModel.deleteMany({ userId })
+  return response
+}
+
+export {
+  uploadOneImage,
+  getOneImage,
+  getAllImages,
+  deleteOneImage,
+  deleteAllImages
+}

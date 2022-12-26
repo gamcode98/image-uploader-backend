@@ -1,7 +1,7 @@
 import Joi from 'joi'
 
 const id = Joi.string()
-const username = Joi.string()
+const username = Joi.string().min(4).max(10)
 const email = Joi.string().email()
 const password = Joi.string()
   .min(8)
@@ -27,6 +27,7 @@ const loginUserSchema = Joi.object({
 })
 
 const updateUserSchema = Joi.object({
+  username: username,
   email: email,
   password: password
 })
