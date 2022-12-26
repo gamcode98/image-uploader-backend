@@ -6,7 +6,14 @@ const email = Joi.string().email()
 const password = Joi.string()
   .min(8)
   .max(16)
-  .pattern(new RegExp('^[a-zA-Z0-9]{3,30}$'))
+  .pattern(
+    new RegExp(
+      '^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$'
+    )
+  )
+  .message(
+    '"password" must be a string with minimum eight characters, at least one upper case English letter, one lower case English letter, one number and one special character'
+  )
 
 const createUserSchema = Joi.object({
   username: username.required(),
