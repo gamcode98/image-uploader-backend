@@ -1,4 +1,4 @@
-import { NextFunction, Response, Request } from 'express'
+import { NextFunction, Response } from 'express'
 import { RequestExt } from '../interfaces/request-ext'
 import {
   uploadOneImage,
@@ -27,7 +27,7 @@ const uploadOneImageCtrl = async (
     const image: UploadImageDto = {
       name: `${file?.filename}`,
       userId: `${user?.id}`,
-      path: `${config.url}:${config.port}/${file?.path}`
+      path: `${config.pathStorage}/${file?.path}`
     }
 
     const response = await uploadOneImage(image)

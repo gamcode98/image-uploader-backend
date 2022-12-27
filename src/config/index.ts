@@ -7,5 +7,6 @@ export const config = {
   dbPassword: process.env.DB_PASSWORD,
   dbHost: process.env.DB_HOST,
   dbName: process.env.DB_NAME,
-  url: process.env.URL
+  url: process.env.URL,
+  pathStorage: process.env.PATH_STORAGE
 }
