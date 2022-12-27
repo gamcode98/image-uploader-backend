@@ -2,7 +2,7 @@
     "version": 2,
     "name": "image-uploader",
     "builds": [
-        { "src": "index.ts", "use": "@vercel/node" }
+        { "src": "/src/index.ts", "use": "@vercel/node" }
     ],
     "routes": [
          { "src": "/dist/(.*)", "dest": "/dist/index.js" }
