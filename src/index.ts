@@ -1,5 +1,6 @@
 import express from 'express'
 import cors from 'cors'
+import morgan from "morgan"
 import { config } from './config'
 import { connection } from './config/db'
 import routerApi from './routes/index'
@@ -13,6 +14,8 @@ connection()
 
 const app = express()
 
+app.use(morgan("dev"))
+
 app.use(express.json())
 
 app.use(cors())
@@ -21,7 +24,7 @@ app.use('/storage', express.static('storage'))
 
 routerApi(app)
 
-// app.use(logErrors)
+app.use(logErrors)
 app.use(boomErrorHandler)
 app.use(errorHandler)
 
