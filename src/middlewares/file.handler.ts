@@ -7,14 +7,21 @@ const storage = multer.diskStorage({
   destination: (req: Request, file: Express.Multer.File, cb: any) => {
     cb(null, './storage')
   },
-  filename: (req: Request, file: Express.Multer.File, cb: any) => {
+  filename: (req: Request, file: Express.Multer.File, cb: any) => {    
     const ext = file.originalname.split('.').pop()
     const fileNameRandom = `image-${Date.now()}.${ext}`
-    cb(null, fileNameRandom)
+    cb(null, fileNameRandom)    
   }
 })
 
-const multerMiddleware = multer({ storage })
+const multerMiddleware = multer({
+    storage,
+    fileFilter: (req, file, cb) => {    
+    const regex = new RegExp('(^image)(/)[a-zA-Z0-9_]*')        
+    if (!regex.test(file.mimetype)) return cb(boom.badRequest('File is not allowed'))    
+    cb(null, true)
+    }
+  })
 
 const deleteImageStored = async (...names: string[]) => {
   return Promise.all(
