@@ -19,7 +19,7 @@ const router = Router()
 router.post(
   '/upload',
   checkJwt,
-  multerMiddleware.single('myFile'),
+  multerMiddleware.single('file'),
   validatorHandler(uploadImageSchema, 'file'),
   uploadOneImageCtrl
 )
