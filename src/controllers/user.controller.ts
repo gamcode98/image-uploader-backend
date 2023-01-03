@@ -3,9 +3,8 @@ import { NextFunction, Response } from 'express'
 import { getImageNames } from '../helpers/images.helper'
 import { RequestExt } from '../interfaces/request-ext'
 import { deleteImageStored } from '../middlewares/file.handler'
-import { deleteAllImages, getAllImages } from '../services/image.service'
+import { deleteAllImages } from '../services/image.service'
 import { deleteOneUser, updateOneUser } from '../services/user.service'
-import { encrypt } from '../utils/bcrypt.handler'
 
 const updateUserCtrl = async (
   { user, body }: RequestExt,
@@ -15,14 +14,9 @@ const updateUserCtrl = async (
   try {
     const userId = user?.id
 
-    const { password } = body
+    const { username, email } = body
 
-    const passwordHash = await encrypt(password)
-
-    const response = await updateOneUser(userId, {
-      ...body,
-      password: passwordHash
-    })
+    const response = await updateOneUser(userId, {username, email})
 
     if (response === null) throw boom.clientTimeout('Something went wrong')
 
