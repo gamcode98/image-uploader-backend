@@ -1,10 +1,9 @@
 import { Secret, sign, verify } from 'jsonwebtoken'
 import { config } from '../config'
-import boom from '@hapi/boom'
 
-const generateToken = (id: string) => {
-  const jwt = sign({ id }, config.jwtSecret as Secret, {
-    expiresIn: '2h'
+const generateToken = (payload: {}, time: string = '2h') => {
+  const jwt = sign(payload, config.jwtSecret as Secret, {
+    expiresIn: time
   })
 
   return jwt

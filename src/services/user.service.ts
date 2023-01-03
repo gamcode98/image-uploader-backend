@@ -10,7 +10,8 @@ const registerNewUser = async ({
   const user: User = await UserModel.create({
     username,
     password: passwordHash,
-    email
+    email,
+    recoveryToken: null
   })
 
   const userRegistered: UserDto = {
@@ -31,25 +32,22 @@ const findOneUserByEmail = async (
   return userFound
 }
 
+const findOneUserById = async (_id: UserDto['_id']): Promise<User | null> => {
+  const user = await UserModel.findById(_id)
+  return user
+}
+
 const updateOneUser = async (
   _id: UserDto['_id'],
   data: UpdateUserDto
 ): Promise<UserDto | null> => {
   const user: User | null = await UserModel.findByIdAndUpdate(_id, data, {
     new: true
-  })
+  }).select('-password -recoveryToken')
 
   if (user === null) return null
 
-  const userUpdated: UserDto = {
-    _id: user._id,
-    username: user.username,
-    email: user.email,
-    createdAt: user.createdAt,
-    updatedAt: user.updatedAt
-  }
-
-  return userUpdated
+  return user
 }
 
 const deleteOneUser = async (_id: UserDto['_id']): Promise<User | null> => {
@@ -57,4 +55,10 @@ const deleteOneUser = async (_id: UserDto['_id']): Promise<User | null> => {
   return userDeleted
 }
 
-export { registerNewUser, findOneUserByEmail, updateOneUser, deleteOneUser }
+export {
+  registerNewUser,
+  findOneUserByEmail,
+  findOneUserById,
+  updateOneUser,
+  deleteOneUser
+}

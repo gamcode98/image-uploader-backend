@@ -8,5 +8,7 @@ export const config = {
   dbHost: process.env.DB_HOST,
   dbName: process.env.DB_NAME,
   url: process.env.URL,
-  pathStorage: process.env.PATH_STORAGE
+  pathStorage: process.env.PATH_STORAGE,
+  smtpEmail: process.env.SMTP_EMAIL,
+  smtpPassword: process.env.SMTP_PASSWORD,
 }

@@ -4,4 +4,5 @@ export interface User extends Base {
   username: string
   email: string
   password: string
+  recoveryToken: string | null
 }

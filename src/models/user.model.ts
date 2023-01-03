@@ -5,7 +5,8 @@ const UserSchema = new Schema<User>(
   {
     username: { type: String },
     email: { type: String },
-    password: { type: String }
+    password: { type: String },
+    recoveryToken: { type: String },
   },
   {
     versionKey: false,

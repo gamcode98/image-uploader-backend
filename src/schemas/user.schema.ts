@@ -14,6 +14,18 @@ const password = Joi.string()
   .message(
     '"password" must be a string with minimum eight characters, at least one upper case English letter, one lower case English letter, one number and one special character'
   )
+const token = Joi.string()
+const newPassword = Joi.string()
+  .min(8)
+  .max(16)
+  .pattern(
+    new RegExp(
+      '^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$'
+    )
+  )
+  .message(
+    '"password" must be a string with minimum eight characters, at least one upper case English letter, one lower case English letter, one number and one special character'
+  )
 
 const createUserSchema = Joi.object({
   username: username.required(),
@@ -35,4 +47,20 @@ const getUserSchema = Joi.object({
   id: id.required()
 })
 
-export { createUserSchema, loginUserSchema, updateUserSchema, getUserSchema }
+const recoveryUserSchema = Joi.object({
+  email: email.required()
+})
+
+const changePasswordUserSchema = Joi.object({
+  token: token.required(),
+  newPassword: newPassword.required()
+})
+
+export {
+  createUserSchema,
+  loginUserSchema,
+  updateUserSchema,
+  getUserSchema,
+  recoveryUserSchema,
+  changePasswordUserSchema
+}
