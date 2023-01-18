@@ -29,5 +29,5 @@ app.use(boomErrorHandler)
 app.use(errorHandler)
 
 app.listen(config.port, () =>
-  console.log(`Listening: ${config.url}:${config.port} - 🚀`)
+  console.log(`Listening: ${config.backendUrl}:${config.port} - 🚀`)
 )

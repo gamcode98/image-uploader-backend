@@ -87,7 +87,7 @@ const recoveryPassword = async (
 
     const token = generateToken(payload, '15min')
 
-    const link = `${config.url}/recovery?token=${token}`
+    const link = `${config.frontendUrl}/recovery?token=${token}`
 
     await updateOneUser(user._id, { recoveryToken: token })
 
