@@ -123,7 +123,7 @@ const changePassword = async (
 
     const user = await findOneUserById(sub as UserDto['_id'])
 
-    if (user?.recoveryToken !== null) throw boom.unauthorized()
+    if (user?.recoveryToken === null) throw boom.unauthorized()
 
     const passwordHash = await encrypt(newPassword)
 
