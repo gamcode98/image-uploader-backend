@@ -21,7 +21,7 @@ router.patch(
 )
 
 router.patch(
-  '/',
+  '/change-password',
   checkJwt,
   validatorHandler(changePasswordInSessionUserSchema, 'body'),
   changePasswordCtrl
